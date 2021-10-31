@@ -34,12 +34,12 @@ async function run() {
     //  taking information for my orders 
 
      app.get('/tourinfo/:userEmail', async(req,res)=>{
-       const userEmail=req.params.userEmail;
-        const query= { email: {userEmail} };
+       const mail=req.params.userEmail;
+        const query=  { email: { $in: [ "mahlilmahee942@gmail.com", mail ]  }}
         const cursor = UserInformationstored.find(query);
         const result= await cursor.toArray();
-        console.log('I have got this ', userEmail)
-        res.json(result);
+        console.log('I have got this ',mail)
+        res.json(result)
      })
     //  new response for orderdetails here 
     app.get('/tour/:tourId',async(req,res)=>{
