@@ -29,16 +29,24 @@ async function run() {
         const query={}
         const cursor = UserInformation.find(query);
         const result= await cursor.toArray();
-        console.log('I have got this ')
+        // console.log('I have got this ')
         res.json(result)
      })
     //  taking information for my orders 
 
      app.get('/tourinfo/:userEmail', async(req,res)=>{
        const result=await UserInformationstored.find({email:req.params.userEmail}).toArray();
-       console.log(result)
+      //  console.log(result)
        res.send(result)
      })
+    //  deleting an item from database 
+    app.delete('/tourpak/:tourid',async(req,res)=>{
+      const idagaing =req.params.tourid;
+      const query = {_id:ObjectId(idagaing)};
+      const result = await UserInformationstored.deleteOne(query);
+      console.log(result,query);
+      res.send(result)
+    })
     //  new response for orderdetails here 
     app.get('/tour/:tourId',async(req,res)=>{
       const userOrder=req.params.tourId;
@@ -52,7 +60,7 @@ async function run() {
     app.post('/tourinfo',async(req,res)=>{
       const userInfo=req.body;
       const result=await UserInformationstored.insertOne(userInfo);
-      console.log(userInfo)
+      // console.log(userInfo)
       res.send(result)
       
     })
