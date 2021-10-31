@@ -4,6 +4,7 @@ const port =process.env.PORT || 4000;
 const { MongoClient } = require('mongodb');
 const cors=require('cors');
 const ObjectId=require('mongodb').ObjectId;
+const email=require('mongodb')
 require('dotenv').config()
 // password \  assignment
 // YCbvwOMwF71TNfKU
@@ -34,12 +35,9 @@ async function run() {
     //  taking information for my orders 
 
      app.get('/tourinfo/:userEmail', async(req,res)=>{
-       const mail=req.params.userEmail;
-        const query=  { email: { $in: [ "mahlilmahee942@gmail.com", mail ]  }}
-        const cursor = UserInformationstored.find(query);
-        const result= await cursor.toArray();
-        console.log('I have got this ',mail)
-        res.json(result)
+       const result=await UserInformationstored.find({email:req.params.userEmail}).toArray();
+       console.log(result)
+       res.send(result)
      })
     //  new response for orderdetails here 
     app.get('/tour/:tourId',async(req,res)=>{
